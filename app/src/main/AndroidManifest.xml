@@ -29,6 +29,12 @@
             android:name=".SettingsActivity"
             android:label="@string/action_settings" >
         </activity>
+        <service android:name=".RefreshService"/>
+        <provider
+            android:authorities="diamond.iain.yamba.StatusProvider"
+            android:name=".StatusProvider"
+            android:exported="false"
+            />
     </application>
 
 </manifest>

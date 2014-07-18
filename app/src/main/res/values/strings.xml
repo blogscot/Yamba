@@ -13,6 +13,7 @@
     <string name="password">Password</string>
     <string name="password_summary">How do you log in?</string>
     <string name="refresh">Refresh</string>
+    <string name="Prefs">Preferences</string>
     <string name="status_update">Status Update</string>
     <string name="interval">Refresh Interval</string>
     <string name="interval_summary">How frequently should data refresh?</string>

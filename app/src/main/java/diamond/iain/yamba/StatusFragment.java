@@ -25,17 +25,15 @@ public class StatusFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "StatusActivity";
     private EditText editStatus;
-    private Button buttonTweet;
     private TextView textCount;
     private int defaultTextColor;
-    SharedPreferences prefs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_status, container, false);
 
         editStatus = (EditText) view.findViewById(R.id.editStatus);
-        buttonTweet = (Button) view.findViewById(R.id.buttonTweet);
+        Button buttonTweet = (Button) view.findViewById(R.id.buttonTweet);
         textCount = (TextView) view.findViewById(R.id.textCount);
 
         buttonTweet.setOnClickListener(this);
