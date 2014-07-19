@@ -37,7 +37,7 @@ public class StatusProvider extends ContentProvider {
         Log.d(TAG, "querying records");
 
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-        qb.setTables( StatusContract.TABLE);
+        qb.setTables(StatusContract.TABLE);
 
         switch (sURIMatcher.match(uri)) {
             case StatusContract.STATUS_DIR:
@@ -45,8 +45,8 @@ public class StatusProvider extends ContentProvider {
             case StatusContract.STATUS_ITEM:
                 qb.appendWhere(StatusContract.Column.ID + "=" + uri.getLastPathSegment());
                 break;
-        default:
-            throw new IllegalArgumentException("Illegal uri: " + uri);
+            default:
+                throw new IllegalArgumentException("Illegal uri: " + uri);
         }
 
         String orderBy = (TextUtils.isEmpty(sortOrder)) ? StatusContract.DEFAULT_SORT : sortOrder;
@@ -112,7 +112,7 @@ public class StatusProvider extends ContentProvider {
                 break;
             case StatusContract.STATUS_ITEM:
                 long id = ContentUris.parseId(uri);
-                where = StatusContract.Column.ID + "="+ id
+                where = StatusContract.Column.ID + "=" + id
                         + (TextUtils.isEmpty(selection) ? "" : " and ( "
                         + selection + " )");
                 break;
@@ -122,7 +122,7 @@ public class StatusProvider extends ContentProvider {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int ret = db.delete(StatusContract.TABLE, where, strings);
 
-        if(ret>0) {
+        if (ret > 0) {
             // Notify that data for this uri has changed
             getContext().getContentResolver().notifyChange(uri, null);
         }

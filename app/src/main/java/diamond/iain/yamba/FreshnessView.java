@@ -29,7 +29,7 @@ public class FreshnessView extends View {
             return;
         long delta = System.currentTimeMillis() - timestamp;
         double hours = delta / 3600000.0;
-        double multiplier = 1-(Math.min(hours, 24) / 24.0);
+        double multiplier = 1 - (Math.min(hours, 24) / 24.0);
         int width = (int) (getWidth() * multiplier);
         canvas.drawLine(0, 0, width, 0, paint);
     }

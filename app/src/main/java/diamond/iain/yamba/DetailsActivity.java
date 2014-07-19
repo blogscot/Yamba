@@ -13,7 +13,7 @@ public class DetailsActivity extends Activity {
             // Create a fragment
             DetailsFragment fragment = new DetailsFragment();
             getFragmentManager().beginTransaction().add(android.R.id.content, fragment,
-                            fragment.getClass().getSimpleName()).commit();
+                    fragment.getClass().getSimpleName()).commit();
         }
     }
 }

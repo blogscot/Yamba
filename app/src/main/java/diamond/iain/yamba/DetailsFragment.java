@@ -1,7 +1,6 @@
 package diamond.iain.yamba;
 
 import android.app.Fragment;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
@@ -47,11 +46,7 @@ public class DetailsFragment extends Fragment {
         }
 
         Uri uri = ContentUris.withAppendedId(StatusContract.CONTENT_URI, id);
-        Log.d(TAG, uri.toString());
-        ContentResolver resolver = getActivity().getContentResolver();
-        Log.d(TAG, resolver.toString());
-        Cursor cursor = resolver.query(uri, null, null, null, null);
-        Log.d(TAG, cursor.toString());
+        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
 
         if (!cursor.moveToFirst())
             return;
