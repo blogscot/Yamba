@@ -20,8 +20,4 @@
         android:id="@+id/action_purge"
         android:icon="@drawable/ic_menu_delete"
         android:title="@string/purge" />
-    <item
-        android:id="@+id/itemRefresh"
-        android:icon="@android:drawable/ic_menu_rotate"
-        android:title="@string/refresh" />
 </menu>

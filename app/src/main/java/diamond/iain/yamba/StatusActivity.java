@@ -14,8 +14,8 @@ public class StatusActivity extends Activity {
             StatusFragment fragment = new StatusFragment();
             getFragmentManager()
                     .beginTransaction()
-                    .add(android.R.id.content, fragment, fragment.getClass().getSimpleName()).commit();
+                    .add(android.R.id.content, fragment,
+                            fragment.getClass().getSimpleName()).commit();
         }
     }
-
 }
