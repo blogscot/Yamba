@@ -8,7 +8,7 @@ public class StatusActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Check if this activity was create before
+        // Check if this activity was created before
         if (savedInstanceState == null) {
             // Create a fragment
             StatusFragment fragment = new StatusFragment();
