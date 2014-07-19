@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
             case R.id.action_purge:
                 int rows = getContentResolver().delete(StatusContract.CONTENT_URI, null, null);
                 Toast.makeText(this, "Deleted "+rows+" rows", Toast.LENGTH_LONG).show();
+                break;
             default:
                 return false;
         }

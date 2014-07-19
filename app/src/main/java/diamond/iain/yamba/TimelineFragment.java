@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cursor> {
+
     private static final String TAG = TimelineFragment.class.getSimpleName();
     private static final String[] FROM = { StatusContract.Column.USER,
             StatusContract.Column.MESSAGE, StatusContract.Column.CREATED_AT,
@@ -37,8 +38,7 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
             switch (view.getId()) {
                 case R.id.list_item_text_created_at:
                     timestamp = cursor.getLong(columnIndex);
-                    CharSequence relTime = DateUtils
-                            .getRelativeTimeSpanString(timestamp);
+                    CharSequence relTime = DateUtils.getRelativeTimeSpanString(timestamp);
                     ((TextView) view).setText(relTime);
                     return true;
                 case R.id.list_item_freshness:
@@ -80,14 +80,15 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
     // Executed on a non-UI thread
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG, "onCreateLoader: id="+id);
         if (id != LOADER_ID)
             return null;
-        Log.d(TAG, "onCreateLoader");
         return new CursorLoader(getActivity(), StatusContract.CONTENT_URI,
                 null, null, null, StatusContract.DEFAULT_SORT);
     }
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        Log.d(TAG, "onLoadFinished");
         // Get the details fragment
         DetailsFragment fragment = (DetailsFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_details);
@@ -101,6 +102,8 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        Log.d(TAG, "onLoaderReset");
+
         mAdapter.swapCursor(null);
     }
 }

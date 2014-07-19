@@ -1,17 +1,21 @@
 package diamond.iain.yamba;
 
 import android.app.Fragment;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class DetailsFragment extends Fragment {
+    private static final String TAG = StatusProvider.class.getSimpleName();
+
     private TextView textUser, textMessage, textCreatedAt;
 
     @Override
@@ -26,12 +30,14 @@ public class DetailsFragment extends Fragment {
 
     @Override
     public void onResume() {
+        Log.d(TAG, "onResume");
         super.onResume();
         long id = getActivity().getIntent().getLongExtra(StatusContract.Column.ID, -1);
         updateView(id);
     }
 
     public void updateView(long id) {
+        Log.d(TAG, "updateView: id=" + id);
 
         if (id == -1) {
             textUser.setText("");
@@ -41,7 +47,11 @@ public class DetailsFragment extends Fragment {
         }
 
         Uri uri = ContentUris.withAppendedId(StatusContract.CONTENT_URI, id);
-        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+        Log.d(TAG, uri.toString());
+        ContentResolver resolver = getActivity().getContentResolver();
+        Log.d(TAG, resolver.toString());
+        Cursor cursor = resolver.query(uri, null, null, null, null);
+        Log.d(TAG, cursor.toString());
 
         if (!cursor.moveToFirst())
             return;

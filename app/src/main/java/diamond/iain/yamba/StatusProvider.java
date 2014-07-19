@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class StatusProvider extends ContentProvider {
@@ -25,13 +26,15 @@ public class StatusProvider extends ContentProvider {
 
     public boolean onCreate() {
         dbHelper = new DbHelper(getContext());
-        Log.d(TAG, "StatusProvider:onCreate");
+        Log.d(TAG, "onCreate");
         return true;
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
+
+        Log.d(TAG, "querying records");
 
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables( StatusContract.TABLE);
@@ -46,7 +49,7 @@ public class StatusProvider extends ContentProvider {
             throw new IllegalArgumentException("Illegal uri: " + uri);
         }
 
-        String orderBy = sortOrder.isEmpty() ? StatusContract.DEFAULT_SORT : sortOrder;
+        String orderBy = (TextUtils.isEmpty(sortOrder)) ? StatusContract.DEFAULT_SORT : sortOrder;
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = qb.query(db, projection, selection, selectionArgs, null, null, orderBy);
@@ -110,7 +113,7 @@ public class StatusProvider extends ContentProvider {
             case StatusContract.STATUS_ITEM:
                 long id = ContentUris.parseId(uri);
                 where = StatusContract.Column.ID + "="+ id
-                        + (selection.isEmpty() ? "" : " and ( "
+                        + (TextUtils.isEmpty(selection) ? "" : " and ( "
                         + selection + " )");
                 break;
             default:
@@ -139,7 +142,7 @@ public class StatusProvider extends ContentProvider {
             case StatusContract.STATUS_ITEM:
                 long id = ContentUris.parseId(uri);
                 where = StatusContract.Column.ID + "=" + id +
-                        (selection.isEmpty() ? "" : "and ( " + selection + " )");
+                        (TextUtils.isEmpty(selection) ? "" : "and ( " + selection + " )");
                 break;
             default:
                 throw new IllegalArgumentException("Illegal uri: " + uri);
