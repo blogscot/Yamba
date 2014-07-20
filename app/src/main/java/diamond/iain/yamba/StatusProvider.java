@@ -34,8 +34,6 @@ public class StatusProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
 
-        Log.d(TAG, "querying records");
-
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(StatusContract.TABLE);
 
