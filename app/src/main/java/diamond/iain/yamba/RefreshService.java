@@ -4,10 +4,10 @@ import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,7 +18,7 @@ import com.marakana.android.yamba.clientlib.YambaClientException;
 import java.util.List;
 
 public class RefreshService extends IntentService {
-    static final String TAG = "RefreshService";
+    private static final String TAG = RefreshService.class.getSimpleName();
 
     public RefreshService() {
         super(TAG);
@@ -37,19 +37,17 @@ public class RefreshService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         String username = prefs.getString("username", "");
         String password = prefs.getString("password", "");
 
-        if (username.isEmpty() || password.isEmpty()) {
+        if ((TextUtils.isEmpty(username) || TextUtils.isEmpty(password))) {
             Toast.makeText(this, "Please update your username and password", Toast.LENGTH_LONG).show();
             return;
         }
-        Log.d(TAG, "OnStarted");
-
-        DbHelper dbHelper = new DbHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Log.d(TAG, "onStarted");
 
         ContentValues values = new ContentValues();
 
@@ -72,6 +70,11 @@ public class RefreshService extends IntentService {
                     Log.d(TAG, String.format("%s: %s", status.getUser(), status.getMessage()));
                 }
             }
+
+            if (count > 0) {
+                sendBroadcast(new Intent("diamond.iain.yamba.action.NEW_STATUSES")
+                        .putExtra("count", count));
+            }
         } catch (YambaClientException e) {
             Log.e(TAG, "Failed to fetch the timeline", e);
             e.printStackTrace();
@@ -81,6 +84,6 @@ public class RefreshService extends IntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "OnDestroy");
+        Log.d(TAG, "onDestroy");
     }
 }
