@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,7 +82,7 @@ public class StatusFragment extends Fragment implements View.OnClickListener {
             String username = prefs.getString("username", "");
             String password = prefs.getString("password", "");
 
-            if (username.isEmpty() || password.isEmpty()) {
+            if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
                 getActivity().startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return "Please update your username and password";
             }
